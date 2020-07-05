@@ -4,12 +4,14 @@ const webpack = require('webpack')
 const DIRECTORY = path.dirname(__dirname)
 
 module.exports = {
-  entry: path.join(DIRECTORY, 'components', 'embed', 'WebPlayer.js'),
+  mode: 'production',
+  entry: path.join(DIRECTORY, 'src', 'components', 'embed', 'WebPlayer.js'),
   output: {
     path: path.join(DIRECTORY, 'dist'),
     filename: 'react-native-web-player.js',
     library: 'react-native-web-player',
     libraryTarget: 'umd',
+    globalObject: 'this',
   },
   module: {
     rules: [
@@ -23,7 +25,7 @@ module.exports = {
               cacheDirectory: true,
             },
           },
-        ]
+        ],
       },
     ],
   },
@@ -43,18 +45,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      output: {
-        comments: false,
-      },
-      compress: {
-        dead_code: true,
-        drop_console: true,
-        screw_ie8: true,
-        warnings: true,
-      }
+      'process.env.NODE_ENV': JSON.stringify('production'),
     }),
   ],
 }
